@@ -1,14 +1,31 @@
 package au.com.telstra.simcardactivator;
 
+import org.hibernate.annotations.Columns;
+
+import javax.persistence.*;
 import java.util.Objects;
 
-public class SimDetails {
+@Entity
+public class SimCard {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(nullable = false)
     private String iccid;
+
+    @Column(nullable=false)
     private String customerEmail;
 
-    public SimDetails(String iccid, String customerEmail){
+    @Column(nullable=false)
+    private boolean active;
+
+    public SimCard(String iccid, String customerEmail, boolean active){
         this.iccid=iccid;
         this.customerEmail=customerEmail;
+        this.active=active;
+    }
+    public SimCard() {
     }
 
 
@@ -16,11 +33,13 @@ public class SimDetails {
         return iccid;
     }
 
-    public SimDetails() {
-    }
 
     public String getCustomerEmail() {
         return customerEmail;
+    }
+
+    public boolean getActive(){
+        return active;
     }
 
     public void setCustomerEmail(String customerEmail) {
@@ -31,11 +50,15 @@ public class SimDetails {
         this.iccid = iccid;
     }
 
+    public void setActive(boolean active){
+        this.active=active;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        SimDetails that = (SimDetails) o;
-        return Objects.equals(iccid, that.iccid) && Objects.equals(customerEmail, that.customerEmail);
+        SimCard that = (SimCard) o;
+        return Objects.equals(iccid, that.iccid) && Objects.equals(customerEmail, that.customerEmail) &&Objects.equals(active,that.active);
     }
 
     @Override
@@ -45,9 +68,10 @@ public class SimDetails {
 
     @Override
     public String toString() {
-        return "SimDetails{" +
+        return "SimCard{" +
                 "iccid='" + iccid + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
+                "active"+active+'\''+
                 '}';
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class SimCardActivator {
 
     public static void main(String[] args) {
+
         new SpringApplicationBuilder(SimCardActivator.class).properties("server.port=9090").run(args);
 
     }
